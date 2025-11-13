@@ -1,0 +1,59 @@
+// new Promise(function(resolve, reject) {
+//     var img = document.createElement('img');
+//     img.src = 'image.jpg';
+//     img.onload = resolve;
+//     img.onerror = reject;
+//     document.body.appendChild(img);
+// })
+// .then (finishLoading)
+// .catch(showAlternateImage);
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promisify setTimeout</title>
+</head>
+<body>
+    <h1>Did the promise finish</h1>
+    <p class="completion">Not yet</p>
+    <p id="ready"></p>
+    <script>
+        // readyState
+        document.addEventListener('readystatechange', () => {
+            let para = document.getElementById('ready')
+            console.log("Current state is: " + document.readyState)
+            if(document.readyState === 'complete'){
+                console.log('All resources loaded completely')
+                para.innerHTML = 'This comfirm that resources has been loaded successful!'
+            }
+        })
+
+        const wait = (ms) => {
+            return new Promise((resolve, reject) => {
+                console.log(this)
+                window.setTimeout(() => {
+                    resolve()
+                }, ms)
+            })
+        }
+
+        let finish = () =>{
+            let completion = document.querySelector(".completion")
+            completion.innerHTML = "Complete after " + millisecond + "ms."
+        }
+
+        const millisecond = 2000
+        wait(millisecond).then(finish)
+
+        
+        let test = new Pormise((resolved, rejected) => {
+            console.log(this)
+        })
+
+        
+
+    </script>
+</body>
+</html>
