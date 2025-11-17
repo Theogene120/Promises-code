@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Are you doing work when the document is ready?</h1>
+	<h3>Your wrapper should resolve before the huge image finishes loading. Turn on <a href="https://developers.google.com/web/tools/chrome-devtools/profile/network-performance/network-conditions">network throttling</a> to test.</h3>
+	<div class="completion">Wrapper hasn't resolved yet!</div>
+	<img class="responsive" src="/images/San.jpg" height="500" width="1000" alt="SF Market Street">
+	<p><a href="https://commons.wikimedia.org/wiki/File:San_Francisco_Market_Street_between_4th_and_5th_St.jpg">Photo: Andreas Praefcke (Own work) [GFDL (http://www.gnu.org/copyleft/fdl.html) or CC BY 3.0 (http://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons</a></p>
+
+    <script>
+        function ready(){
+            return new Promise(resolve => {
+                const checkstate = () => {
+                    if(document.readyState !== 'loading'){
+                        setTimeout(() =>{
+                            resolve()
+                        }, 3000)
+                    }
+                }
+
+                document.addEventListener('readystatechange', checkstate)
+                checkstate()
+            })
+        }
+
+        // Here is the Demo
+
+        const warapperSolved = () => {
+            let completion = document.querySelector('.completion');
+			completion.innerHTML = "Resolved!";
+        }
+
+        // Thening
+        
+        ready().then(warapperSolved)
+
+    </script>
+</body>
+</html>
