@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Promise Script Loader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #status {
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .success { color: green; border-color: green; }
+        .error { color: red; border-color: red; }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Asynchronous Script Loader</h1>
+    <p>This document demonstrates wrapping script loading in a JavaScript Promise.</p>
+    
+    <div id="status">Status: Initializing...</div>
+    <div id="result">The script will load shortly. Open the browser console (F12) to see all handler outputs.</div>
+
+    <script>
+        const statusEl = document.getElementById('status');
+        const resultEl = document.getElementById('result');
+
+        function loadScript(src) {
+          return new Promise(function(resolve, reject) {
+            let script = document.createElement('script');
+            script.src = src;
+
+            // Resolve the promise when the script is loaded
+            script.onload = () => resolve(script);
+            
+            // Reject the promise on error
+            script.onerror = () => reject(new Error(`Script load error for ${src}`));
+
+            // Append the script to the document head to start loading
+            document.head.append(script);
+          });
+        }
+
+        // --- Example Usage ---
+        const scriptUrl = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js";
+        
+        // 1. Start the loading process
+        let promise = loadScript(scriptUrl);
+        statusEl.textContent = `Status: Attempting to load ${scriptUrl}...`;
+
+        // 2. Attach the first handler with success and error callbacks
+        promise.then(
+          // Success Handler
+          script => {
+                statusEl.textContent = `Status: SUCCESS! ${script.src} is loaded.`;
+                statusEl.classList.add('success');
+              
+                // Make some operation to prove it works
+                const array = [1, 2, 3];
+                const doubled = array.map(n => n * 2);
+                resultEl.innerHTML = `<strong>Lodash is ready!</strong> Test result: \`_.map([1, 2, 3])\` gives <strong>[${doubled}]</strong>`;
+
+                console.log(`[Promise Handler 1 - Success] Script element resolved:`, script);
+          },
+          // Error Handler
+          error => {
+                statusEl.textContent = `Status: ERROR! Script failed to load.`;
+                statusEl.classList.add('error');
+                resultEl.innerHTML = `Error details: ${error.message}`;
+                console.error(`[Promise Handler 1 - Error] Caught:`, error.message);
+          }
+        );
+
+        // 3. Attach a second, independent handler to the same promise
+        // This demonstrates that multiple .then() calls work on a single promise object.
+        promise.then(script => {
+            console.log('[Promise Handler 2 - Success] This handler runs after the first one completes.');
+        });
+    </script>
+
+</body>
+</html>
