@@ -1,0 +1,17 @@
+
+<script>
+window.addEventListener('unhandledrejection', (event) =>{
+    console.log("UNHANDLED PROMISE REJECTION!");
+    console.log("Reason:", event.reason);
+    console.log("PROMISE:", event.promise)
+})
+
+
+const promise = () => {
+    return new Promise((resolved, reject) => {
+        reject("Something went wrong!")
+    })
+}
+promise().then(res => console.log("This won't be displayed"))
+
+</script>
