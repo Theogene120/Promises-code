@@ -1,0 +1,48 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Q. Write a function to remove all numbers from a string. </h2></li>
+    <p><b>Answer: </b></p>
+    <button id="btnn" style=" height: 32px;">Click here to load JavaScript</button>
+    <p>Enter String Of Your Choice</p>
+    <p><input type="text" placeholder="Example: Asychronous34 p9rogramming235 " style="height: 30px; width: 500px;" id="inp"> <button id="btn" style="margin-left: 20px; height: 32px;">Click here to get answer</button> </p>
+    <p><b>String Without Numbers: <span style="color: green; font-size: 20px;" id="result"></span></b></p>
+    <p id="status"></p>
+
+    <script>
+        function loadScript(src, callback){
+            let script = document.createElement('script')
+            script.src = src
+
+            script.onload = () => callback(null, script)
+            script.onerror = () => callback(new Error(`Fail to load ${src}`))
+
+            document.body.append(script)
+        }
+
+        const btnn = document.getElementById('btnn')
+        const status = document.getElementById('status')
+
+        btnn.addEventListener('click', () => {
+            loadScript('main.js', (err) =>{
+            
+            if(err){
+                status.textContent = "Fail to load main.js! Something went wrong, You won't get the answer"
+                status.style.color = 'red'
+            }else{
+                status.textContent = 'main.js loaded successfully!'
+                status.style.color = 'green'
+            }
+            })
+        })
+        
+    </script>
+</body>
+</html>
