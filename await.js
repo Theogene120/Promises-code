@@ -1,17 +1,29 @@
-let promise = () => {
-  return new Promise((resolve, reject) => {
-    let second = 0;
-    let interval = setInterval(() => {
-      second++
-      console.log('Tring to resolve...')
-      if(second === 6) {
-        resolve('Done')
-        clearInterval(interval)
+async function getUsers(names) {
+  let jobs = [];
+
+  for(let name of names) {
+    let job = fetch(`https://api.github.com/users/${name}`).then(
+      successResponse => {
+        if (successResponse.status != 200) {
+          return null;
+        } else {
+          return successResponse.json();
+        }},
+      failResponse => {
+        return null;
       }
-    }, 1000);
-  })
-  
-  
+    );
+
+    jobs.push(job);
+  }
+
+  let results = await Promise.all(jobs);
+
+  return results;
 }
 
-promise().then(value => console.log(`Resoved with: ${value} value`))
+let names = ['theos', 'cynthia', 'evariste'];
+
+getUsers(names).then(users => {
+  console.log(users);
+});

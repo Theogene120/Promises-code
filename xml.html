@@ -1,0 +1,17 @@
+
+<!-- XMLHttpRequest() object available in browser environoment only 
+that why code wrapped inside the script tag -->
+<script>
+    let xhr = new XMLHttpRequest()
+
+xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1')
+
+xhr.responseType = 'text'
+
+xhr.send()
+
+xhr.onload = () => {
+    let response = xhr.response
+    console.log(response)
+}
+</script>

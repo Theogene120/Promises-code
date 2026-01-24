@@ -1,18 +1,20 @@
-let getData = async(url, trials) => {
-    let count = 0;
+async function getData(url, count) {
     try{
-        let message = await fetch(url)
-        if(message.status !== 200){
-            throw new Error('I can see you bro')
+        let response = await fetch(url)
+
+        if(!response.ok){
+            throw new Error('Fail to fetch 1')
         }
+        let data = await response.json()
+        console.log("Success: ", data)
+        return data
     }catch{
-        if(count <= trials){
-            console.log("Retrying")
-            count++
-            getData()
+        if(count > 0){
+            console.log('Retring....')
+            getData(url, count - 1)
+        }else{
+            throw new Error('Fail to fetch 2')
         }
-        console.log('Welcome Back!')
     }
 }
-
 getData('https://jsonplaceholder.typicode.com/posts/1', 5)
