@@ -1,24 +1,17 @@
-new Promise(function(resolve, reject) {
+class Thenable {
+  constructor(num) {
+    this.num = num;
+  }
 
-  setTimeout(() => resolve(1), 1000);
+  then(resolve, reject) {
+    // after 1 second, call resolve with num * 2
+    setTimeout(() => resolve(this.num * 2), 1000);
+  }
+}
+let obj = new Thenable(2)
+async function f() {
+  let result = await obj;
+  console.log(result);
+}
 
-}).then(function(result) {
-
-  console.log(result); // 1
-
-  return new Promise((resolve, reject) => { // (*)
-    setTimeout(() => resolve(result * 2), 1000);
-  });
-
-}).then(function(result) { // (**)
-
-  console.log(result); // 2
-
-  return new Promise((resolve, reject) => {
-    setTimeout(() => reject(), 1000);
-  });
-
-}).then(
-    res => console.log(res),
-    err => console.log('wait...........')
-)
+f();
