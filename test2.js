@@ -1,7 +1,7 @@
-class Wait {
-  async wait() {
-    return await Promise.resolve(1)
-  }
+async function Data(){
+  let response = await fetch('https://api.github.com/users/iliakan')
+  let data = await response.json()
+  console.log(data)
 }
-let obj = new Wait
-obj.wait().then(res => console.log(res))
+
+Data()
