@@ -1,7 +1,5 @@
-async function Data(){
-  let response = await fetch('https://api.github.com/users/iliakan')
-  let data = await response.json()
-  console.log(data)
-}
+// 'https://api.github.com/users/iliakan'
 
-Data()
+let response = await fetch('https://api.github.com/users/theogene120')
+let result = await response.json()
+console.log(result)

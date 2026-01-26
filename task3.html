@@ -1,0 +1,24 @@
+<script>
+
+    function getData(url, count) {
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+    xhr.send()
+
+    xhr.responseType = 'blob'
+
+    xhr.onload = () => {
+        if(xhr.status === 200){
+            console.log(xhr.response)
+        }else{
+            console.log("Error:", xhr.status)
+        }
+    }
+
+    xhr.onerror = () => {
+        console.log('Network Error or Invalid URL')
+    }
+}
+getData('https://jsonplaceholder.typicode.com/posts/1', 5)
+
+</script>
