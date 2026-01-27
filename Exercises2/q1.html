@@ -1,0 +1,21 @@
+<script>
+    let fetchUsersTodos = async () => {
+    let urls = ['https://jsonplaceholder.typicode.com/users', 'https://jsonplaceholder.typicode.com/todos']
+
+    let requests = urls.map(url => fetch(url))
+    let responses = await Promise.all(requests)
+    let results =  await Promise.all(responses.map(response => response.json()))
+    //console.log(results)
+    let[users, todos] = results
+    
+    let combinedData = users.map(user => {
+        let userTodo = todos.filter(todo => todo.userId == user.id)
+        return {...user, todo: userTodo}
+    })
+    
+    return combinedData
+    }
+
+    fetchUsersTodos()
+    .then(res => console.log(res))
+</script>

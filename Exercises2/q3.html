@@ -1,0 +1,18 @@
+<script>
+    let getData = (url) => {
+        
+        let controller = new AbortController()
+        let signal = controller.signal
+        setTimeout(() => {
+            controller.abort()
+        }, 5000);
+
+        return fetch(url, {signal})
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(err => console.log('Failed to load'))
+        
+    }
+
+    getData('https://jsonplaceholder.typicode.com/users')
+</script>

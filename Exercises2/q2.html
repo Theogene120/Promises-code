@@ -1,0 +1,28 @@
+<script>
+    function getFastPosts(){
+        let urls = [
+            'https://dummyjson.com/posts', 
+            'https://this-may-not-exist.com/posts', 
+            'https://jsonplaceholder.typicode.com/posts'
+        ]
+        let responses = urls.map(url => {
+            let controler = new AbortController()
+            let signal = controler.signal
+
+            setTimeout(() => controler.abort(), 1000);
+
+            return fetch(url, {signal})
+            .then(response =>{
+                if(!response.ok) throw new Error("Failed")
+                return response.json()
+            })
+        })
+
+        return Promise.race(responses)
+    }
+
+    getFastPosts()
+    .then(data => console.log(data))
+    .catch(err => console.log('All requests failed or timed out'))
+
+</script>
