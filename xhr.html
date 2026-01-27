@@ -1,0 +1,25 @@
+<script>
+    let xhr = new XMLHttpRequest()
+
+    xhr.open('GET', 'https://api.github.com/users/theogene120')
+
+    xhr.onload = () => {
+        if(xhr.status === 200){
+            alert(xhr.responseText)
+        }
+    }
+
+    xhr.onprogress = e => {
+        if(e.lengthComputible){
+            alert(`Recieved ${e.loaded} out of ${e.total}`)
+        }else{
+            alert(`Recieved ${e.loaded} bytes`)
+        }
+    }
+
+    xhr.onerror = () => {
+        alert('Fail to fetch data')
+    }
+
+    xhr.send()
+</script>

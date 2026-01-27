@@ -4,13 +4,13 @@ that why code wrapped inside the script tag -->
 <script>
     let xhr = new XMLHttpRequest()
 
-xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1')
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1')
 
-xhr.responseType = 'text'
+    xhr.responseType = 'text'
 
-xhr.send()
+    xhr.send()
 
-xhr.onload = () => {
+    xhr.onload = () => {
     let response = xhr.response
     console.log(response)
 }

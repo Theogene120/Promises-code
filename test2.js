@@ -1,5 +1,15 @@
 // 'https://api.github.com/users/iliakan'
 
-let response = await fetch('https://api.github.com/users/theogene120')
-let result = await response.json()
-console.log(result)
+let fetchData = () => {
+    let controller = new AbortController()
+    let signal = controller.signal
+    fetch('https://api.github.com/users/iliakan', {signal})
+    .then(response => response.json())
+    .then(res => console.log(res))
+
+    setTimeout(() => {
+        controller.abort()
+    }, 10);
+}
+
+fetchData()
