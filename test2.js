@@ -1,15 +1,17 @@
 // 'https://api.github.com/users/iliakan'
 
-let fetchData = () => {
-    let controller = new AbortController()
-    let signal = controller.signal
-    fetch('https://api.github.com/users/iliakan', {signal})
-    .then(response => response.json())
-    .then(res => console.log(res))
-
-    setTimeout(() => {
-        controller.abort()
-    }, 10);
+function wait(){
+    return new Promise(resolve => setTimeout(resolve, 1000))
 }
 
-fetchData()
+let asyncCounter = async () => {
+    let result = []
+    for(let i = 1; i <= 5; i++){
+        await wait()
+        console.log(i)
+        result.push(i)
+    }
+    return result
+}
+
+asyncCounter().then(res => console.log('Final result is:', res))

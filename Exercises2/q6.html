@@ -1,0 +1,17 @@
+<script>
+    function wait(){
+        return new Promise(resolve => setTimeout(resolve, 1000))
+    }
+
+    let asyncCounter = async () => {
+        let result = []
+        for(let i = 1; i <= 5; i++){
+            await wait()
+            console.log(i)
+            result.push(i)
+        }
+        return result
+    }
+
+    asyncCounter().then(res => console.log('Final Result is:', res))
+</script>
