@@ -2,13 +2,11 @@
 
 //https://jsonplaceholder.typicode.com/users
 
-fetch('https://jsonplaceholder.typicode.com/users')
-.then(response => response.json())
-.then(result => {
-    let ans = []
-    for(let i = 0; i < 3; i++){
-        ans.push(result[i].address)
-    }
+Promise.resolve()
+.then(() => console.log(1));
 
-    console.log(ans)
-})
+queueMicrotask(() => console.log(2));
+setTimeout(() => console.log(3), 0);
+console.log(4);
+new Promise(() => console.log(5));
+(async () => console.log(6))();

@@ -9,7 +9,7 @@
             let controler = new AbortController()
             let signal = controler.signal
 
-            setTimeout(() => controler.abort(), 1000);
+            setTimeout(() => controler.abort(), 2000);
 
             return fetch(url, {signal})
             .then(response =>{
