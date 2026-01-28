@@ -1,17 +1,14 @@
 // 'https://api.github.com/users/iliakan'
 
-function wait(){
-    return new Promise(resolve => setTimeout(resolve, 1000))
-}
+//https://jsonplaceholder.typicode.com/users
 
-let asyncCounter = async () => {
-    let result = []
-    for(let i = 1; i <= 5; i++){
-        await wait()
-        console.log(i)
-        result.push(i)
+fetch('https://jsonplaceholder.typicode.com/users')
+.then(response => response.json())
+.then(result => {
+    let ans = []
+    for(let i = 0; i < 3; i++){
+        ans.push(result[i].address)
     }
-    return result
-}
 
-asyncCounter().then(res => console.log('Final result is:', res))
+    console.log(ans)
+})
