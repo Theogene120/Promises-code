@@ -2,11 +2,30 @@
 
 //https://jsonplaceholder.typicode.com/users
 
-Promise.resolve()
-.then(() => console.log(1));
+const nums = [1, 2, 3, 4, 5];
 
-queueMicrotask(() => console.log(2));
-setTimeout(() => console.log(3), 0);
-console.log(4);
-new Promise(() => console.log(5));
-(async () => console.log(6))();
+const promise = (num) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(num);
+    }, 2000);
+  });
+};
+
+// function display(numbers) {
+//   numbers.forEach(async (num) => {
+//     const dis = await promise(num);
+//     console.log(dis);
+//   });
+// }
+
+// display(nums);
+
+async function display(nums) {
+    for (const num of nums) {
+        const dis = await promise(num)
+        console.log(dis)
+    }
+}
+
+display(nums);
